@@ -2,3 +2,5 @@ config.json
 pnpm-lock.yaml
 node_modules/
 /db/
+src/utils/test.log
+info.log

@@ -7,7 +7,7 @@ const formatLog = (log: any): string => {
     return `${log.label} [${log.level}]: ${log.message}`;
 }
 
-const retriveLogPath = () => `${path.join(__dirname, "test.log")}`
+const retriveLogPath = () => `${path.join(__dirname, "../../info.log")}`
 export const logger = createLogger({
     silent: false,
     transports: [

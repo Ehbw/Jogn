@@ -54,7 +54,7 @@ export class Bot {
                     })
 
                     const data = await this._rest.put(
-                        Routes.applicationGuildCommands(bot.user.id, "810843147764629587"),
+                        Routes.applicationCommands(bot.user.id),
                         {body: jsonCommands})
                 }catch(err){
                     console.error(err)

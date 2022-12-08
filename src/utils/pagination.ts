@@ -22,7 +22,7 @@ export async function Pagination(
     let Fields = refreshFields()
 
     const currentPage = await interaction.editReply({
-        embeds: [embed.addFields(Fields)],
+        embeds: [embed.addFields(Fields).setFooter({text: `Page ${page + 1}/${totalPages + 1}`} )],
         components: [row],
     })
 
@@ -69,7 +69,7 @@ export async function Pagination(
             await i.editReply({
                 embeds: [embed.setFields(
                     refreshFields()
-                )],
+                ).setFooter({"text": `Page ${page+1}/${totalPages+1}`})],
                 components: [row]
             })
             return

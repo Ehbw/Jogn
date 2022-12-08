@@ -1,0 +1,13 @@
+{
+    "bot": {
+        "token": "TOKEN FROM DISCORD DEVELOPER PORTAL"
+    },
+    "firefly": {
+        "url": "https://fireflycloud.net",
+        "username": "",
+        "password": "",
+        "addressees": {
+            "History": ""
+        }
+    }
+}
