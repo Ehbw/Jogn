@@ -17,7 +17,6 @@ export class Bot {
     private _commandRegistrations: SlashCommandBuilder[] = [];
     private _firefly: _Firefly
     private _rest: REST;
-    //@ts-ignore
     private _gpt: ChatGPTAPI;
     private _rockDB: RockDB
 
@@ -72,7 +71,11 @@ export class Bot {
                         Routes.applicationCommands(bot.user.id),
                         {body: jsonCommands})
                     if(this._gpt){
-                        await this._gpt.ensureAuth()
+                        try{
+                            await this._gpt.ensureAuth()
+                        }catch(gptError){
+                            logger.error("Unable to authenticate with ChatGPT")
+                        }
                     }
                 }catch(err){
                     console.error(err)

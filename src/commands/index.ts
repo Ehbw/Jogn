@@ -1,5 +1,3 @@
-//import "./createRole"
-import "./getTasks.js"
-//import "./setRole"
-import "./setNotifications.js"
-import "./askAI.js"
+import "./getTasks.js";
+import "./setNotifications.js";
+import "./askAI.js";

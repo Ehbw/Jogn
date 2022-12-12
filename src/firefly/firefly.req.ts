@@ -10,12 +10,12 @@ export enum FireflyEndpoints {
 }
 
 export type TaskData = {
-    addressees?: string[], // Cloud DB identifier ("DB:Cloud:DB:SIMS:123921") = 12C/Hi1
+    addressees?: string[], // Cloud DB identifier ("DB:Cloud:...")
     archiveStatus: "All", // Hardcoded to "All"?
     completionStatus: "All" | "Todo" | "DoneOrArchived",
     markingStatus: "All" | "OnlyMarked" | "OnlyUnmarked",
     ownerType: "OnlySetters",
-    page: number, // Pageing
+    page: number, // Pageation
     pageSize: number, // 10 is default?
     readStatus: "All" | "OnlyRead" | "OnlyUnread",
     sortingCriteria: {
