@@ -1,9 +1,10 @@
 import { APIEmbedField, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from "discord.js";
-import { DiscordCommand } from "../decorator/command.decorator";
-import { FireflyEndpoints, Task } from "../firefly/firefly.req";
-import { Pagination } from "../utils/pagination";
-import FireFly from "../firefly/firefly.main";
-import config from "../../config.json";
+import { DiscordCommand } from "../decorator/command.decorator.js";
+import { FireflyEndpoints, Task } from "../firefly/firefly.req.js";
+import { Pagination } from "../utils/pagination.js";
+
+import config from "../../config.json" assert {type: "json"};
+import Instance from "../index.js";
 
 class GetTasks{
     @DiscordCommand({
@@ -12,11 +13,11 @@ class GetTasks{
         .setDescription("Retrives the latest history tasks set on FireFly")
     })
     async GetTasks(interaction: ChatInputCommandInteraction){
-        if(FireFly.Tasks){
+        if(Instance.firefly.Tasks){
             const embed = new EmbedBuilder().setTitle("Recent Tasks")
             .setTimestamp()
             let data: APIEmbedField[] = []
-            FireFly.Tasks.items.forEach((task: Task) => {
+            Instance.firefly.Tasks.items.forEach((task: Task) => {
                 let dueDate = new Date(task.dueDate)
                 dueDate.setHours(12, 0, 0, 0)
                 data.push(

@@ -1,6 +1,6 @@
-import config from "../../config.json";
+import config from "../../config.json" assert {type: "json"};
 import * as superagent from 'superagent';
-import logger from "../utils/logger";
+import logger from "../utils/logger.js";
 
 export enum FireflyEndpoints {
     LOGIN = "/login/login.aspx?prelogin=URL&kr=Cloud:Cloud",
@@ -88,8 +88,12 @@ export type Task = {
     classes?: unknown | null
 }
 
-class _FireFlyRequests {
-    private _agent = superagent.agent()
+export class _FireFlyRequests {
+    private _agent;
+
+    constructor(){
+        this._agent = superagent.agent()
+    }
 
     public async RetriveTasks(requestType: TaskData): Promise<TaskRetrival> {
         let URL = `${config.firefly.url}${FireflyEndpoints.FILTERBY}`
@@ -108,7 +112,7 @@ class _FireFlyRequests {
             })
             .catch((err) => {
                 logger.error(err)
-                reject()
+                reject("Unable to retrive tasks")
             })
         })
     }
@@ -130,12 +134,11 @@ class _FireFlyRequests {
                     logger.error("Invalid credentials provided")
                     return resolve(false)
                 }
-                logger.info("Successfully logged into Firefly")
                 resolve(true)
             })
             .catch((err) => {
                 logger.error(err)
-                reject()
+                reject("Unable to login")
             })
         })
     }
@@ -150,6 +153,3 @@ class _FireFlyRequests {
         })
     }
 }
-
-const FireflyRequests: _FireFlyRequests = new _FireFlyRequests()
-export default FireflyRequests;

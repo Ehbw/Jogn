@@ -2,14 +2,19 @@
   "name": "bot",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "exports": "./index.js",
   "scripts": {
-    "dev": "ts-node src/index.ts"
+    "dev": "ts-node --esm --experimental-specifier-resolution=node src/index.ts"
+  },
+  "engines": {
+    "node": ">14.16"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chatgpt": "^2.0.7",
     "discord.js": "^14.7.1",
     "rocksdb": "^5.2.1",
     "superagent": "^8.0.5",

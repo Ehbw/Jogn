@@ -1,6 +1,7 @@
 {
     "bot": {
-        "token": "TOKEN FROM DISCORD DEVELOPER PORTAL"
+        "token": "TOKEN FROM DISCORD DEVELOPER PORTAL",
+        "gptSession": ""
     },
     "firefly": {
         "url": "https://fireflycloud.net",

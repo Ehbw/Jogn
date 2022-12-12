@@ -1,26 +1,40 @@
 import {Client, Collection, Events, GatewayIntentBits, REST, MessageMentionOptions, SlashCommandBuilder, Routes, RESTPostAPIChatInputApplicationCommandsJSONBody, ChatInputCommandInteraction} from 'discord.js'
-import FireflyRequests from './firefly/firefly.req' 
 import leveldown from 'rocksdb';
+import path, {dirname} from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
-import config from '../config.json'
-import FireFly from './firefly/firefly.main';
-import { RockDB } from './utils/RockDB';
-import path from 'path';
-import logger from './utils/logger';
+import config from '../config.json' assert { type: "json"};
+import { _Firefly } from './firefly/firefly.main.js';
+import { RockDB } from './utils/RockDB.js';
+import logger from './utils/logger.js';
+import { ChatGPTAPI } from 'chatgpt';
+
 
 export class Bot {
     private readonly _client: Client;
     private _commands: Collection<string, (interaction: ChatInputCommandInteraction) => void>;
     private _commandRegistrations: SlashCommandBuilder[] = [];
+    private _firefly: _Firefly
     private _rest: REST;
+    //@ts-ignore
+    private _gpt: ChatGPTAPI;
     private _rockDB: RockDB
 
     get db(): leveldown{
         return this._rockDB.db
     }
 
+    get firefly(): _Firefly{
+        return this._firefly
+    }
+
     get client(): Client{
         return this._client
+    }
+
+    get gpt(): ChatGPTAPI{
+        return this._gpt
     }
 
     public RegisterCommand(command: SlashCommandBuilder, value: (interaction: ChatInputCommandInteraction) => void){
@@ -35,15 +49,16 @@ export class Bot {
             intents: intents,
             allowedMentions: allowedMentions
         })
+        this._firefly = new _Firefly(config.firefly.username, config.firefly.password)
         this._rest = new REST({version: '10'}).setToken(token)
-        FireflyRequests.Login(config.firefly.username, config.firefly.password)
-        .then((result) => {
-            if(result){
-                FireFly.refreshTasks()
-            }
-        })
+
+        if(config.bot.gptSession){
+            this._gpt = new ChatGPTAPI({
+                sessionToken: config.bot.gptSession
+            })
+        }
         
-        import("./commands")
+        import("./commands/index.js")
 
         this._client.once(Events.ClientReady, bot => {
             (async() => {
@@ -56,6 +71,9 @@ export class Bot {
                     const data = await this._rest.put(
                         Routes.applicationCommands(bot.user.id),
                         {body: jsonCommands})
+                    if(this._gpt){
+                        await this._gpt.ensureAuth()
+                    }
                 }catch(err){
                     console.error(err)
                 }
@@ -77,7 +95,5 @@ export class Bot {
     }
 }
 
-
 export const Instance: Bot = new Bot(config.bot.token, [GatewayIntentBits.GuildMembers], undefined)
 export default Instance
-

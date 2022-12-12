@@ -1,6 +1,6 @@
 import { ChannelType, ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
-import Instance from "..";
-import { DiscordCommand } from "../decorator/command.decorator";
+import Instance from "../index.js";
+import { DiscordCommand } from "../decorator/command.decorator.js";
 
 class SetNotifications{
     @DiscordCommand({
@@ -16,13 +16,12 @@ class SetNotifications{
     async setChannel(interaction: ChatInputCommandInteraction){
         let data = interaction.options.get("channel", true)
         if(data && data.value){
-            Instance.db.put(`${interaction.guildId}-notification`, data.value.toString(), function(err){
+            Instance.db.put(`${interaction.guildId}-notification`, data.value.toString(), function(err: any){
                 if(!err){
                     interaction.reply("Updated configuration")
                 }
             })
         }
-        console.log(interaction.options.get("channel", true))
     }
 }
 

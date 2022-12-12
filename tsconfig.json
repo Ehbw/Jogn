@@ -1,16 +1,23 @@
 {
-    "compilerOptions": {                        
-      "target": "es6",                               
-      "module": "commonjs",                           
-      "outDir": "./dist",                             
-      "rootDir": "../../",                             
-      "strict": true,
-      "moduleResolution": "node",
-      "experimentalDecorators": true,
-      "resolveJsonModule": true,
-      "esModuleInterop": true,                       
-    },
-    "exclude":[
-      "./node_modules"
-    ]
+
+  "compilerOptions": {                        
+    "target": "ESNext",                               
+    "module": "Node16",
+    "outDir": "./dist",   
+    "lib": ["ESNext"],                          
+    "rootDir": "../../",
+    "strict": true,
+    "moduleResolution": "Node16",
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,                       
+  },
+  "exclude":[
+    "./node_modules"
+  ],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true,
+    "experimentalResolver": true
   }
+}
