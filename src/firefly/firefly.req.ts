@@ -41,16 +41,16 @@ export type Task = {
     id: string,
     title: string,
     setter: {
-        sortKey: string,  // FirstName FullName GUID e.g. Ethan Ethan Wood DB:Cloud:....
-        guid: string,
+        sortKey: string,  // FirstName FullName GUID
+        guid: string, // DB:Cloud...
         name: string, // Full Name
-        deleted: boolean
+        deleted: boolean // unused
     },
     addresses: {
         guid: string,
         name: string, // Class name e.g. 12C/Hi1
         isGroup: boolean,
-        source: "FF" | string
+        source: "FF" | string // most requests use FF, however it is likely that there is multiple 
     }[],
     setDate: string,
     dueDate: string,
@@ -62,7 +62,7 @@ export type Task = {
     },
     mark: {
         isMarked: false,
-        grade: null | unknown, // could be string or number?
+        grade: null | string, // Likely a string
         mark: null | number,
         markMax: null | number,
         hasFeedback: boolean
