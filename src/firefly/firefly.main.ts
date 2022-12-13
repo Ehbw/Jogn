@@ -114,7 +114,7 @@ export class _Firefly {
             this.tasks = result
         }).catch((error) => {
             logger.error("Unable to retrive tasks, attempting relogin")
-            this.request.Login(this.email, this.password)
+            this.request.Login(this.email, this.password).catch(() => logger.error("Unable to login in order to retrive tasks"))
         })
     }
 }

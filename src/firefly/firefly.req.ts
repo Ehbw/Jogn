@@ -137,7 +137,8 @@ export class _FireFlyRequests {
                 resolve(true)
             })
             .catch((err) => {
-                logger.error(err)
+                logger.error((<any>err.message))
+                this._agent = superagent.agent()
                 reject("Unable to login")
             })
         })
