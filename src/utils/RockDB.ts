@@ -1,4 +1,3 @@
-import path from 'path';
 import leveldown from 'rocksdb';
 import logger from './logger.js';
 

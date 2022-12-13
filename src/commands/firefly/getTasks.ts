@@ -1,10 +1,10 @@
 import { APIEmbedField, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from "discord.js";
-import { DiscordCommand } from "../decorator/command.decorator.js";
-import { FireflyEndpoints, Task } from "../firefly/firefly.req.js";
-import { Pagination } from "../utils/pagination.js";
+import { DiscordCommand } from "../../decorator/command.decorator.js";
+import { FireflyEndpoints, Task } from "../../firefly/firefly.req.js";
+import { Pagination } from "../../utils/pagination.js";
 
-import config from "../../config.json" assert {type: "json"};
-import Instance from "../index.js";
+import config from "../../../config.json" assert {type: "json"};
+import Instance from "../../index.js";
 
 class GetTasks{
     @DiscordCommand({

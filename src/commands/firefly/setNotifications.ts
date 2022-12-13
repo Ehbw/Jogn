@@ -1,6 +1,6 @@
 import { ChannelType, ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
-import Instance from "../index.js";
-import { DiscordCommand } from "../decorator/command.decorator.js";
+import Instance from "../../index.js";
+import { DiscordCommand } from "../../decorator/command.decorator.js";
 
 class SetNotifications{
     @DiscordCommand({

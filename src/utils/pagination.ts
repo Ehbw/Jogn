@@ -16,13 +16,13 @@ export async function Pagination(
     if(!interaction.deferred)
         await interaction.deferReply()
     const refreshFields = () => {
-        return items.filter((val, index) => index >= (page * splitPerPage) && index < ((page * splitPerPage) + splitPerPage))
+        return items.filter((_, index) => index >= (page * splitPerPage) && index < ((page * splitPerPage) + splitPerPage))
     }
 
     let Fields = refreshFields()
 
     const currentPage = await interaction.editReply({
-        embeds: [embed.addFields(Fields).setFooter({text: `Page ${page + 1}/${totalPages + 1}`} )],
+        embeds: [embed.addFields(Fields).setFooter({text: `Page ${page + 1}/${totalPages + 1} • Requested by ${interaction.user.username}`, "iconURL": interaction.user.displayAvatarURL()} )],
         components: [row],
     })
 
@@ -69,7 +69,7 @@ export async function Pagination(
             await i.editReply({
                 embeds: [embed.setFields(
                     refreshFields()
-                ).setFooter({"text": `Page ${page+1}/${totalPages+1}`})],
+                ).setFooter({"text": `Page ${page+1}/${totalPages+1} • Requested by ${interaction.user.username}`, "iconURL": interaction.user.displayAvatarURL()})],
                 components: [row]
             })
             return
