@@ -1,5 +1,6 @@
 import path from 'path';
 import leveldown from 'rocksdb';
+import logger from './logger.js';
 
 export class RockDB {
     private _db: leveldown;
@@ -12,7 +13,7 @@ export class RockDB {
         this._db = leveldown(location)
         this._db.open((err) => {
             if(err){
-                console.error(err)
+                logger.error(err)
             }
         })
     }
@@ -20,7 +21,7 @@ export class RockDB {
     public close(){
         this._db.close((err) => {
             if(err){
-                console.error(err)
+                logger.error(err)
             }
         })
     }
