@@ -50,36 +50,30 @@ export class Bot {
         })
         this._firefly = new _Firefly(config.firefly.username, config.firefly.password)
         this._rest = new REST({version: '10'}).setToken(token)
-
-        if(config.bot.gptSession){
-            this._gpt = new ChatGPTAPI({
-                sessionToken: config.bot.gptSession
-            })
-        }
-        
         import("./commands/index.js")
 
         this._client.once(Events.ClientReady, bot => {
             (async() => {
-                try{
-                    let jsonCommands: RESTPostAPIChatInputApplicationCommandsJSONBody[] = []
-                    this._commandRegistrations.forEach((val: SlashCommandBuilder) => {
-                        jsonCommands.push(val.toJSON())
-                    })
+                let jsonCommands: RESTPostAPIChatInputApplicationCommandsJSONBody[] = []
+                this._commandRegistrations.forEach((val: SlashCommandBuilder) => {
+                    jsonCommands.push(val.toJSON())
+                })
 
-                    const data = await this._rest.put(
-                        Routes.applicationCommands(bot.user.id),
-                        {body: jsonCommands})
+                await this._rest.put(
+                    Routes.applicationCommands(bot.user.id),
+                    {body: jsonCommands})
+
+                try{
+                    this._gpt = new ChatGPTAPI({
+                        sessionToken: config.bot.gptSession
+                    })
                     if(this._gpt){
-                        try{
-                            await this._gpt.ensureAuth()
-                        }catch(gptError){
-                            logger.error("Unable to authenticate with ChatGPT")
-                        }
+                        await this._gpt.ensureAuth()
                     }
                 }catch(err){
-                    console.error(err)
+                    logger.error("Unable to authenticate with ChatGPT")
                 }
+
             })();
             logger.info("Started discord bot instance")
         })
