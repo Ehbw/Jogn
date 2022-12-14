@@ -1,7 +1,7 @@
 import { createLogger, transports, format } from 'winston';
-//import path, {dirname} from 'path';
+import path, {dirname} from 'path';
 import { fileURLToPath } from 'url';
-//const __dirname = dirname(fileURLToPath(import.meta.url))
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const formatLog = (log: any): string => {
     if (log.module)
@@ -9,15 +9,15 @@ const formatLog = (log: any): string => {
     return `${log.label} [${log.level}]: ${log.message}`;
 }
 
-//const retriveLogPath = () => `${path.join(__dirname, "../../info.log")}`
+const retriveLogPath = () => `${path.join(__dirname, "../../info.log")}`
 export const logger = createLogger({
     silent: false,
     transports: [
-        /*new transports.File({
+        new transports.File({
             filename: retriveLogPath(),
             level: "silly",
             format: format.combine(format.errors({stack: true}), format.timestamp(), format.json())
-        }),*/
+        }),
         new transports.Console({
             level: "debug",
             format: format.combine(
