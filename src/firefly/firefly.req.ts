@@ -9,6 +9,13 @@ export enum FireflyEndpoints {
     FILTERBY = "/api/v2/taskListing/view/student/tasks/all/filterBy"
 }
 
+export type FireflyUser = {
+    sortKey: string,
+    guid: string,
+    name: string,
+    deleted: boolean
+}
+
 export type TaskData = {
     addressees?: string[], // Cloud DB identifier ("DB:Cloud:...")
     archiveStatus: "All", // Hardcoded to "All"?
@@ -40,28 +47,18 @@ export type TaskRetrival = {
 export type Task = {
     id: string,
     title: string,
-    setter: {
-        sortKey: string,  // FirstName FullName GUID
-        guid: string, // DB:Cloud...
-        name: string, // Full Name
-        deleted: boolean // unused
-    },
+    setter: FireflyUser,
+    student: FireflyUser,
     addresses: {
         guid: string,
         name: string, // Class name e.g. 12C/Hi1
         isGroup: boolean,
-        source: "FF" | string // most requests use FF, however it is likely that there is multiple 
+        source: "FF" | string // most requests use FF as source, however it is likely that there is multiple 
     }[],
     setDate: string,
     dueDate: string,
-    student: {
-        sortKey: string,
-        guid: string,
-        name: string,
-        deleted: false
-    },
     mark: {
-        isMarked: false,
+        isMarked: boolean,
         grade: null | string, // Likely a string
         mark: null | number,
         markMax: null | number,
@@ -71,20 +68,15 @@ export type Task = {
     isExcused: boolean,
     isDone: boolean,
     isResubmissionRequired: boolean,
-    lastMarkedAsDoneBy: {
-        sortKey: string,
-        guid: string,
-        name: string,
-        deleted: boolean
-    } | null,
+    lastMarkedAsDoneBy: FireflyUser | null,
     archieved: boolean,
     isUnread: boolean,
     fileSubmissionRequired: boolean,
     hasFileSubmission: boolean,
-    descriptionContainsQuestions: false,
-    isMissingDueDate: false,
+    descriptionContainsQuestions: boolean,
+    isMissingDueDate: boolean,
     taskSource: 'FF' | string,
-    altLink?: unknown | null,
+    altLink?: string | null, // Most likely string
     classes?: unknown | null
 }
 
