@@ -143,6 +143,8 @@ export class _FireFlyRequests {
             if(res.status === 200){
                 logger.info("Successfully logged out of firefly")
             }
+        }).catch((err) => {
+            logger.error(`Failed to log out of firefly: ${(<any>err.message || err)}`)
         })
     }
 }
