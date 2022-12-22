@@ -4,3 +4,5 @@ node_modules/
 /db/
 src/utils/test.log
 info.log
+# Debug file, currently unused but planned for communicating with external machine.
+src/debug.ts

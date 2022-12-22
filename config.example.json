@@ -1,14 +1,17 @@
 {
     "bot": {
-        "token": "TOKEN FROM DISCORD DEVELOPER PORTAL",
-        "gptSession": ""
+        "mainGuild": "000000000000000000",
+        "token": "TOKEN FROM DISCORD DEVELOPER PORTAL"
     },
     "firefly": {
         "url": "https://fireflycloud.net",
         "username": "",
         "password": "",
-        "addressees": {
-            "History": ""
-        }
+        "addressees": {}
+    },
+    "synergy": {
+        "url": "https://schoolsynergy.co.uk",
+        "username": "",
+        "password": ""
     }
 }

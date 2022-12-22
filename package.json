@@ -14,8 +14,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chatgpt": "^2.0.7",
+    "@types/cheerio": "^0.22.31",
+    "big-integer": "^1.6.51",
+    "cheerio": "1.0.0-rc.12",
     "discord.js": "^14.7.1",
+    "node-html-parser": "^6.1.4",
     "rocksdb": "^5.2.1",
     "superagent": "^8.0.5",
     "winston": "^3.8.2"

@@ -44,7 +44,6 @@ export class _Firefly {
             if(task){
                 let dueDate = new Date(task.dueDate)
                 dueDate.setHours(12)
-
                 let embed = new EmbedBuilder()
                 .setAuthor({
                     name: "Firefly",
@@ -54,7 +53,7 @@ export class _Firefly {
                 .setTitle("New Firefly task")
                 .setFields({
                     name: task.title,
-                    value: `> Due: <t:${dueDate.getTime() / 1000}:R>\n> Set By: ${task.setter.guid}\n> [Details](${config.firefly.url}/${FireflyEndpoints.SETTASKS}/${task.id})`
+                    value: `> Due: <t:${dueDate.getTime() / 1000}:R>\n> Set By: ${task.setter.name}\n> [Details](${config.firefly.url}/${FireflyEndpoints.SETTASKS}/${task.id})`
                 })
                 channe.send({embeds: [embed]})
             }
