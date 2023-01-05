@@ -2,7 +2,7 @@ import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from "
 import { DiscordCommand } from "../../decorator/command.decorator.js";
 import * as superagent from 'superagent';
 
-type servstatus = {
+type ServerStatus = {
     players: {
         online: number,
         max: number,
@@ -21,7 +21,7 @@ class Minecast {
     })
     async GetStatus(interaction: ChatInputCommandInteraction){
         agent.get("https://api.mcsrvstat.us/2/mc.ehbw.uk").then((res) => {
-            let data = JSON.parse(res.text) as servstatus
+            let data = JSON.parse(res.text) as ServerStatus
             const embed = new EmbedBuilder().setTitle("Minecraft Server")
             .setTimestamp()
             .setFields({
@@ -33,3 +33,6 @@ class Minecast {
         })
     }
 }
+
+const mc: Minecast = new Minecast()
+export default Minecast
